@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node /dist/shared/infra/http/server.js",
+    "typeorm": "ts-node-dev tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
