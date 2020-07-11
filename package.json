@@ -48,7 +48,9 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-async-errors": "^3.1.1"
+    "express-async-errors": "^3.1.1",
+    "pg": "^8.3.0",
+    "typeorm": "^0.2.25"
   },
   "config": {
     "commitizen": {
