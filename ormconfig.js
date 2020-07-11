@@ -4,7 +4,7 @@ module.exports = {
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "gostack_gobarber",
+  "database": "github-tagger",
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
   ],

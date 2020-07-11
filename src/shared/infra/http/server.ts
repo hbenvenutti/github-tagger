@@ -1,0 +1,3 @@
+interface server {
+  name: string;
+}
