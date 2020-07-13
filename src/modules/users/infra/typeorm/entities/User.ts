@@ -15,7 +15,7 @@ class User {
   password: string;
 
   @Column()
-  github_token: string;
+  github_token?: string;
 
   @Column()
   username: string;
