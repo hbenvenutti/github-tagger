@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+// TODO: Discover why I'd to import reflect-metadata here;
+
 import { isUuid } from 'uuidv4';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from './CreateUserService';
