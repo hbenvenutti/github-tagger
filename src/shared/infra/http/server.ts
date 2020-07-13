@@ -7,5 +7,7 @@ import '@shared/infra/typeorm';
 import '@shared/container';
 
 app.listen(process.env.PORT, () => {
-  console.log(`Listening at port: ${process.env.PORT}`);
+  if (process.env.ENVIRONMENT === 'develop') {
+    console.log(`Listening at port: ${process.env.PORT}`);
+  }
 });
