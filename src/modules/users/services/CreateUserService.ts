@@ -1,4 +1,5 @@
 import AppError from '@shared/errors/AppError';
+import { injectable, inject } from 'tsyringe';
 import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
 
@@ -9,8 +10,12 @@ interface IRequestDTO {
   github_token?: string;
 }
 
+@injectable()
 class CreateUserService {
-  constructor(private usersRespository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRespository: IUsersRepository,
+  ) {}
 
   public async execute({
     username,
