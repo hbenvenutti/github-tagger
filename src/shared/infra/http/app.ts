@@ -10,6 +10,7 @@ class App {
   constructor() {
     this.middlewares();
     this.routes();
+    this.exceptionHandler();
   }
 
   middlewares() {
