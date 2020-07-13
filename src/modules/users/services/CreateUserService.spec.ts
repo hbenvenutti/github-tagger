@@ -5,17 +5,22 @@ import { isUuid } from 'uuidv4';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from './CreateUserService';
 import FakeUsersRepository from '../repositories/fake/FakeUsersRepository';
+import FakeHashProvider from '../providers/HashProvider/fake/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
 let createUser: CreateUserService;
 
 describe('CreateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
-    createUser = new CreateUserService(fakeUsersRepository);
+    fakeHashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
   });
 
   it('should be able to create a new user', async () => {
+    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
+
     const user = await createUser.execute({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
@@ -28,11 +33,13 @@ describe('CreateUser', () => {
     expect(user).toHaveProperty('id');
     expect(idIsUuid).toBe(true);
     expect(user.email).toBe('johndoe@example.com');
-    expect(user.password).toBe('password');
+    expect(generateHash).toHaveBeenCalledWith(user.password);
     expect(user.github_token).toBe('token');
   });
 
   it('should be able to create a new user without providing a tag', async () => {
+    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
+
     const user = await createUser.execute({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
@@ -44,7 +51,7 @@ describe('CreateUser', () => {
     expect(user).toHaveProperty('id');
     expect(idIsUuid).toBe(true);
     expect(user.email).toBe('johndoe@example.com');
-    expect(user.password).toBe('password');
+    expect(generateHash).toHaveBeenCalledWith(user.password);
     expect(user.github_token).toBe(undefined);
   });
 

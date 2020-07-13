@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
   username: string;
@@ -15,6 +16,7 @@ class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRespository: IUsersRepository,
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -34,10 +36,12 @@ class CreateUserService {
       throw new AppError('Username already in use');
     }
 
+    const hashedPassword = await this.hashProvider.generateHash(password);
+
     const user = this.usersRespository.create({
       username,
       email,
-      password,
+      password: hashedPassword,
       github_token,
     });
 
