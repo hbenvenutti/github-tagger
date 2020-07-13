@@ -2,16 +2,22 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
 import AppError from '@shared/errors/AppError';
+import routes from './routes';
 
 class App {
   server = express();
 
   constructor() {
     this.middlewares();
+    this.routes();
   }
 
   middlewares() {
     this.server.use(express.json());
+  }
+
+  routes() {
+    this.server.use(routes);
   }
 
   exceptionHandler() {
