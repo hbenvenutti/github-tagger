@@ -16,6 +16,7 @@ const api = {
           username: 'string',
           password: 'string',
           github_token: 'string | undefined',
+          github_username: 'string',
           email: 'string',
         },
         response: {
