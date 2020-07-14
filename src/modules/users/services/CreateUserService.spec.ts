@@ -1,11 +1,8 @@
-import 'reflect-metadata';
-// TODO: Discover why I'd to import reflect-metadata here;
-
 import { isUuid } from 'uuidv4';
 import AppError from '@shared/errors/AppError';
-import CreateUserService from './CreateUserService';
 import FakeUsersRepository from '../repositories/fake/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fake/FakeHashProvider';
+import CreateUserService from './CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
@@ -26,6 +23,7 @@ describe('CreateUser', () => {
       email: 'johndoe@example.com',
       password: 'password',
       github_token: 'token',
+      github_username: 'johndoe',
     });
 
     const idIsUuid = isUuid(user.id);
@@ -35,6 +33,7 @@ describe('CreateUser', () => {
     expect(user.email).toBe('johndoe@example.com');
     expect(generateHash).toHaveBeenCalledWith(user.password);
     expect(user.github_token).toBe('token');
+    expect(user.github_username).toBe('johndoe');
   });
 
   it('should be able to create a new user without providing a tag', async () => {
@@ -44,6 +43,7 @@ describe('CreateUser', () => {
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: 'password',
+      github_username: 'johndoe',
     });
 
     const idIsUuid = isUuid(user.id);
@@ -53,6 +53,7 @@ describe('CreateUser', () => {
     expect(user.email).toBe('johndoe@example.com');
     expect(generateHash).toHaveBeenCalledWith(user.password);
     expect(user.github_token).toBe(undefined);
+    expect(user.github_username).toBe('johndoe');
   });
 
   it('should not be able to create user with an email already in use', async () => {
@@ -60,6 +61,7 @@ describe('CreateUser', () => {
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: 'password',
+      github_username: 'johndoe',
     });
 
     await expect(
@@ -67,6 +69,7 @@ describe('CreateUser', () => {
         username: 'JohnDoe2',
         email: 'johndoe@example.com',
         password: 'password',
+        github_username: 'johndoe',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -76,6 +79,7 @@ describe('CreateUser', () => {
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: 'password',
+      github_username: 'johndoe',
     });
 
     await expect(
@@ -83,6 +87,7 @@ describe('CreateUser', () => {
         username: 'JohnDoe',
         email: 'johndoe2@example.com',
         password: 'password',
+        github_username: 'johndoe',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
