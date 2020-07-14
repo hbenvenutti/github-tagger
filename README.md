@@ -23,4 +23,22 @@ Github Client to tag repositories.
 * Commit-Lint ensures commit standardization.
 * Commitizen displays an interactive interface to write the commit message.
 
+# Routes
+
+## __***/users***__ :
+
+### **Post** ***/users***: <br>
+
+**Creates a User**;<br>
+
+Request:
+  ```ts:
+    body: {
+    username: string;
+    password: string;
+    email: string;
+    github_tag?: string;
+  }
+  ```
+
 
