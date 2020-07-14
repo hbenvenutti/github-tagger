@@ -1,0 +1,89 @@
+import 'reflect-metadata';
+// TODO: Discover why I'd to import reflect-metadata here;
+
+import { isUuid } from 'uuidv4';
+import AppError from '@shared/errors/AppError';
+import CreateUserService from './CreateUserService';
+import FakeUsersRepository from '../repositories/fake/FakeUsersRepository';
+import FakeHashProvider from '../providers/HashProvider/fake/FakeHashProvider';
+
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUser: CreateUserService;
+
+describe('CreateUser', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+  });
+
+  it('should be able to create a new user', async () => {
+    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
+
+    const user = await createUser.execute({
+      username: 'JohnDoe',
+      email: 'johndoe@example.com',
+      password: 'password',
+      github_token: 'token',
+    });
+
+    const idIsUuid = isUuid(user.id);
+
+    expect(user).toHaveProperty('id');
+    expect(idIsUuid).toBe(true);
+    expect(user.email).toBe('johndoe@example.com');
+    expect(generateHash).toHaveBeenCalledWith(user.password);
+    expect(user.github_token).toBe('token');
+  });
+
+  it('should be able to create a new user without providing a tag', async () => {
+    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
+
+    const user = await createUser.execute({
+      username: 'JohnDoe',
+      email: 'johndoe@example.com',
+      password: 'password',
+    });
+
+    const idIsUuid = isUuid(user.id);
+
+    expect(user).toHaveProperty('id');
+    expect(idIsUuid).toBe(true);
+    expect(user.email).toBe('johndoe@example.com');
+    expect(generateHash).toHaveBeenCalledWith(user.password);
+    expect(user.github_token).toBe(undefined);
+  });
+
+  it('should not be able to create user with an email already in use', async () => {
+    await createUser.execute({
+      username: 'JohnDoe',
+      email: 'johndoe@example.com',
+      password: 'password',
+    });
+
+    await expect(
+      createUser.execute({
+        username: 'JohnDoe2',
+        email: 'johndoe@example.com',
+        password: 'password',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to create user with a username already in use', async () => {
+    await createUser.execute({
+      username: 'JohnDoe',
+      email: 'johndoe@example.com',
+      password: 'password',
+    });
+
+    await expect(
+      createUser.execute({
+        username: 'JohnDoe',
+        email: 'johndoe2@example.com',
+        password: 'password',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+});
