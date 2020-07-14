@@ -32,13 +32,13 @@ Github Client to tag repositories.
 **Creates a User**;<br>
 
 Request:
-  ```ts:
-    body: {
-    username: string;
-    password: string;
-    email: string;
-    github_tag?: string;
-  }
+  ```ts
+    request.body: {
+      username: string;
+      password: string;
+      email: string;
+      github_tag?: string;
+    }
   ```
 
 
