@@ -38,6 +38,7 @@ Request:
       password: string;
       email: string;
       github_tag?: string;
+      github_username: string
     }
   ```
 
