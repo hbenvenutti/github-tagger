@@ -4,7 +4,13 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 
 class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { username, email, password, github_token } = request.body;
+    const {
+      username,
+      email,
+      password,
+      github_token,
+      github_username,
+    } = request.body;
 
     const createUser = container.resolve(CreateUserService);
 
@@ -13,6 +19,7 @@ class UsersController {
       password,
       username,
       github_token,
+      github_username,
     });
 
     delete user.password;
