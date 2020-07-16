@@ -5,7 +5,6 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
-  userId: string;
   email: string;
   password: string;
 }
@@ -23,11 +22,7 @@ class CreateSessionsService {
     private tokenProvider: ITokenProvider,
   ) {}
 
-  public async execute({
-    userId,
-    email,
-    password,
-  }: IRequestDTO): Promise<string> {
+  public async execute({ email, password }: IRequestDTO): Promise<string> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -43,7 +38,7 @@ class CreateSessionsService {
       throw new AppError('Invalid email/password', 401);
     }
 
-    const token = this.tokenProvider.signToken(userId);
+    const token = await this.tokenProvider.signToken(user.id);
 
     return token;
   }
