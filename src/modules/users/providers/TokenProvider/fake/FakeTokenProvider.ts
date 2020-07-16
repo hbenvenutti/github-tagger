@@ -5,8 +5,8 @@ class FakeTokenProvider implements ITokenProvider {
 
   private expiresIn = '7d';
 
-  public async signToken(payload: string): Promise<string> {
-    const token = `${payload},${this.secret},${this.expiresIn}`;
+  public async signToken(userId: string): Promise<string> {
+    const token = `${userId},${this.secret},${this.expiresIn}`;
 
     return token;
   }
