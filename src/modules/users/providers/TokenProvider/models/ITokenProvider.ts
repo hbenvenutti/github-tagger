@@ -1,3 +1,3 @@
 export default interface ITokenProvider {
-  signToken(payload: string): Promise<string>;
+  signToken(userId: string): Promise<string>;
 }
