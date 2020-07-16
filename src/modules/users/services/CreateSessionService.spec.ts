@@ -34,13 +34,13 @@ describe('CreateSession', () => {
       github_username: 'johndoe',
     });
 
-    await createSession.execute({ userId: id, email, password });
+    await createSession.execute({ email, password });
 
     expect(signToken).toHaveBeenCalledWith(id);
   });
 
   it('should not be able to authenticate without a valid email', async () => {
-    const { id, password } = await createUser.execute({
+    const { password } = await createUser.execute({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: 'password',
@@ -49,12 +49,12 @@ describe('CreateSession', () => {
     });
 
     await expect(
-      createSession.execute({ userId: id, email: 'wrong-email', password }),
+      createSession.execute({ email: 'wrong-email', password }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to authenticate without the correct password', async () => {
-    const { id, email } = await createUser.execute({
+    const { email } = await createUser.execute({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: 'password',
@@ -63,7 +63,7 @@ describe('CreateSession', () => {
     });
 
     await expect(
-      createSession.execute({ userId: id, email, password: 'wrong-password' }),
+      createSession.execute({ email, password: 'wrong-password' }),
     ).rejects.toBeInstanceOf(AppError);
   });
 });
