@@ -1,6 +1,7 @@
+// TODO: Chenge the string for env var
 export default {
   jwt: {
-    secret: process.env.SECRET,
+    secret: 'secretphrase',
     expiresIn: '1d',
   },
 };
