@@ -21,9 +21,6 @@ class User {
   username: string;
 
   @Column()
-  github_username: string;
-
-  @Column()
   email: string;
 
   @CreateDateColumn()

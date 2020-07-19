@@ -9,7 +9,6 @@ interface IRequestDTO {
   email: string;
   password: string;
   github_token?: string;
-  github_username: string;
 }
 
 @injectable()
@@ -27,7 +26,6 @@ class CreateUserService {
     email,
     password,
     github_token,
-    github_username,
   }: IRequestDTO): Promise<User> {
     const emailInUse = await this.usersRespository.findByEmail(email);
     const usernameInUse = await this.usersRespository.findByUsername(username);
@@ -47,7 +45,6 @@ class CreateUserService {
       email,
       password: hashedPassword,
       github_token,
-      github_username,
     });
 
     return user;

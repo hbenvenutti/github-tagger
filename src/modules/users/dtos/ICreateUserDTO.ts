@@ -3,5 +3,4 @@ export default interface ICreateUserDTO {
   email: string;
   password: string;
   github_token?: string;
-  github_username: string;
 }

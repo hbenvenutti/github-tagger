@@ -20,12 +20,6 @@ export default class CreateUsers1594532741038 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'github_username',
-            type: 'varchar',
-            isNullable: false,
-            isUnique: false,
-          },
-          {
             name: 'email',
             type: 'varchar',
             isNullable: false,
