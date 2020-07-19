@@ -27,7 +27,7 @@ Github Client to tag repositories.
 
 ## __***/users***__ :
 
-### **Post** ***/users***: <br>
+>### **Post** ***/users***: <br>
 
 **Creates a User**;<br>
 
@@ -38,7 +38,51 @@ Request:
       password: string;
       email: string;
       github_tag?: string;
+      github_username: string
     }
   ```
+Response:
+  ```ts
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    github_tag?: string;
+    github_username: string;
+    created_at: string;
+    updated_at: string;
+  }
+  ```
+  <hr>
 
+## __***/sessions***__:
 
+> ### **Post** ***/sessions***
+
+**Authenticates a User**;<br>
+
+Request:
+  ```ts
+    request.body: {
+      email: string;
+      password: string;
+    }
+  ```
+Response:
+
+  ```ts
+    token: string;
+  ```
+<hr>
+
+# Authentication Required Routes
+To access auth required routes, must provide the token in request headers;
+
+Request:
+```ts
+  request: {
+    headers: {
+      authorization: "bearer <token>"
+    }
+  }
+```
