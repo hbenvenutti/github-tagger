@@ -10,6 +10,12 @@ class FakeTokenProvider implements ITokenProvider {
 
     return token;
   }
+
+  public async verifyToken(token: string): Promise<string> {
+    const [id] = token.split(',');
+
+    return id;
+  }
 }
 
 export default FakeTokenProvider;
