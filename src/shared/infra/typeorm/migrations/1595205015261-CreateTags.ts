@@ -19,6 +19,16 @@ export default class CreateTags1595205015261 implements MigrationInterface {
             isUnique: true,
             isNullable: false,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );

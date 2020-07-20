@@ -22,6 +22,16 @@ export default class CreateTagsRepositories1595219923209
             type: 'uuid',
             isPrimary: true,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );

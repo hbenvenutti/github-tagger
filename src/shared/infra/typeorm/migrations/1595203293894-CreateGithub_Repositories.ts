@@ -30,6 +30,16 @@ export default class CreateGithubRepositories1595203293894
             isNullable: false,
             isUnique: false,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );
