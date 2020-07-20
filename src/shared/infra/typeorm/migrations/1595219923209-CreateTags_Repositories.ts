@@ -32,12 +32,16 @@ export default class CreateTagsRepositories1595219923209
         columnNames: ['repository_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'github_repositories',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       }),
       new TableForeignKey({
         name: 'TagId',
         columnNames: ['tag_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'tags',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       }),
     ]);
   }
