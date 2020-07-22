@@ -3,5 +3,6 @@ import IGetStarredRepositoriesDTO from '@modules/tags/dtos/IGetStarredRepositori
 export default interface IAPIProvider {
   getStarredRepositories(
     username: string,
+    token?: string,
   ): Promise<IGetStarredRepositoriesDTO[]>;
 }

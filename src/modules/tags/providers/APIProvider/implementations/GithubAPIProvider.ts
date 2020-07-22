@@ -15,13 +15,15 @@ class GithubAPIProvider implements IAPIProvider {
   ): Promise<IGetStarredRepositoriesDTO[]> {
     const authorization = githubToken || undefined;
 
-    const response = (await this.api.get(`/users/${username}/starred`, {
+    const response = await this.api.get(`/users/${username}/starred`, {
       headers: {
-        authorization,
+        authorization: `bearer ${authorization}`,
       },
-    })) as IGithubResponseDTO[];
+    });
 
-    const repositories = response.map(repo => {
+    const githubRepositories = response.data as IGithubResponseDTO[];
+
+    const repositories = githubRepositories.map(repo => {
       const { id, name, description, html_url } = repo;
       const repository = {
         id,
