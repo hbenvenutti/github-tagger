@@ -41,7 +41,7 @@ describe('GetRemoteRepositories', () => {
     ]);
   });
 
-  it('should not be able to fetch remote repositories withou valid user', async () => {
+  it('should not be able to fetch remote repositories without valid user', async () => {
     const id = 'fake id';
 
     await expect(getRepositories.execute(id)).rejects.toBeInstanceOf(AppError);
