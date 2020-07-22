@@ -21,10 +21,10 @@ class GetRemoteRepositoriesService {
       throw new AppError('User not found', 401);
     }
 
-    const { username, github_token } = user;
+    const { github_username, github_token } = user;
 
     const repositories = await this.apiProvider.getStarredRepositories(
-      username,
+      github_username,
       github_token,
     );
 
