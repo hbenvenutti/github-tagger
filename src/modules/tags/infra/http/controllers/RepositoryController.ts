@@ -9,15 +9,12 @@ class RepositoryController {
      * Second, store/update repos in the database
      * return all starred repos or filtered by tag
      */
-    console.log('inside controller');
     const { id } = request.user;
 
-    console.log(`id: ${id}`);
     const getRepositories = container.resolve(GetRemoteRepositoriesService);
 
     const repositories = await getRepositories.execute(id);
 
-    console.log(`Controller: \nRepositories: ${repositories}`);
     return response.json(repositories);
   }
 }
