@@ -28,6 +28,10 @@ class GetRemoteRepositoriesService {
       github_token,
     );
 
+    if (!repositories) {
+      throw new AppError('No repositories found', 404);
+    }
+
     return repositories;
   }
 }
