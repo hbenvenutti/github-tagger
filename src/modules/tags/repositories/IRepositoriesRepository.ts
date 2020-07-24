@@ -5,6 +5,8 @@ interface IRepositoriesRepository {
   create(
     data: ICreateRepositoryDTO[] | ICreateRepositoryDTO,
   ): Promise<GithubRepository[]>;
+
+  findRemoteIdsByUser(user_id: string): Promise<number[]>;
 }
 
 export default IRepositoriesRepository;
