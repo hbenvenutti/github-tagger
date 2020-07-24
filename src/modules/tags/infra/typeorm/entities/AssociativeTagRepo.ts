@@ -10,9 +10,9 @@ import GithubRepository from './GithubRepository';
 import Tag from './Tag';
 
 @Entity()
-class TagRepository {
+class AssociativeTagRepo {
   @PrimaryColumn()
-  repository_id: number;
+  repository_id: string;
 
   @PrimaryColumn()
   tag_id: string;
@@ -32,4 +32,4 @@ class TagRepository {
   updated_at: Date;
 }
 
-export default TagRepository;
+export default AssociativeTagRepo;

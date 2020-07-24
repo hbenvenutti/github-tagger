@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import TagRepository from './TagRepository';
+import AssociativeTagRepo from './AssociativeTagRepo';
 
 @Entity()
 class Tag {
@@ -16,8 +16,11 @@ class Tag {
   @Column()
   name: string;
 
-  @OneToMany(() => TagRepository, tags_repositories => tags_repositories.tag_id)
-  tags_repository: TagRepository[];
+  @OneToMany(
+    () => AssociativeTagRepo,
+    tags_repositories => tags_repositories.tag_id,
+  )
+  tags_repository: AssociativeTagRepo[];
 
   @CreateDateColumn()
   created_at: Date;

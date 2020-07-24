@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
-import TagRepository from './TagRepository';
+import AssociativeTagRepo from './AssociativeTagRepo';
 
 @Entity('github_repositories')
 class GithubRepository {
@@ -36,11 +36,11 @@ class GithubRepository {
   url: string;
 
   @OneToMany(
-    () => TagRepository,
+    () => AssociativeTagRepo,
     tags_repositories => tags_repositories.repository_id,
   )
   @JoinColumn({ name: 'tags_repository' })
-  tags_repository: TagRepository[];
+  tags_repository: AssociativeTagRepo[];
 
   @CreateDateColumn()
   created_at: Date;
