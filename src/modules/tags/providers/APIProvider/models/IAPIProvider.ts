@@ -1,8 +1,8 @@
-import IGetStarredRepositoriesDTO from '@modules/tags/dtos/IGetStarredRepositoriesDTO';
+import IGetStarredReposDTO from '@modules/tags/dtos/IGetStarredReposDTO';
 
 export default interface IAPIProvider {
   getStarredRepositories(
     username: string,
     token?: string,
-  ): Promise<IGetStarredRepositoriesDTO[]>;
+  ): Promise<IGetStarredReposDTO[]>;
 }

@@ -1,14 +1,12 @@
 import { getRepository } from 'typeorm';
-import IRepositoriesRepository from '@modules/tags/repositories/IRepositoriesRepository';
-import ICreateRepositoryDTO from '@modules/tags/dtos/ICreateRepositoryDTO';
+import IReposRepository from '@modules/tags/repositories/IReposRepository';
+import ICreateReposDTO from '@modules/tags/dtos/ICreateReposDTO';
 import GithubRepository from '../entities/GithubRepository';
 
-class GithubReposRepository implements IRepositoriesRepository {
+class GithubReposRepository implements IReposRepository {
   private ormRepository = getRepository(GithubRepository);
 
-  public async create(
-    data: ICreateRepositoryDTO[],
-  ): Promise<GithubRepository[]> {
+  public async create(data: ICreateReposDTO[]): Promise<GithubRepository[]> {
     const repositories: GithubRepository[] = this.ormRepository.create(
       data.map(repo => repo),
     );

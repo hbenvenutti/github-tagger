@@ -1,8 +1,8 @@
-import IGetStarredRepositoriesDTO from '@modules/tags/dtos/IGetStarredRepositoriesDTO';
+import IGetStarredReposDTO from '@modules/tags/dtos/IGetStarredReposDTO';
 import IAPIProvider from '../models/IAPIProvider';
 
 class FakeAPIProvider implements IAPIProvider {
-  private remoteRepositories: IGetStarredRepositoriesDTO[] = [
+  private remoteRepositories: IGetStarredReposDTO[] = [
     {
       id: 1,
       name: 'fakerepo',
@@ -14,7 +14,7 @@ class FakeAPIProvider implements IAPIProvider {
   public async getStarredRepositories(
     __: string,
     _: string,
-  ): Promise<IGetStarredRepositoriesDTO[]> {
+  ): Promise<IGetStarredReposDTO[]> {
     return this.remoteRepositories;
   }
 }

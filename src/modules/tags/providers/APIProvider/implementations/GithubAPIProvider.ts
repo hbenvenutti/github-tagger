@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import IGetStarredRepositoriesDTO from '@modules/tags/dtos/IGetStarredRepositoriesDTO';
+import IGetStarredReposDTO from '@modules/tags/dtos/IGetStarredReposDTO';
 import AppError from '@shared/errors/AppError';
 import IAPIProvider from '../models/IAPIProvider';
 import IGithubResponseDTO from './dtos/IGithubResponseDTO';
@@ -13,7 +13,7 @@ class GithubAPIProvider implements IAPIProvider {
   public async getStarredRepositories(
     username: string,
     githubToken?: string,
-  ): Promise<IGetStarredRepositoriesDTO[]> {
+  ): Promise<IGetStarredReposDTO[]> {
     const authorization = githubToken || undefined;
     try {
       const response = await this.api.get(`/users/${username}/starred`, {
