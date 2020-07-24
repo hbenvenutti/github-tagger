@@ -2,10 +2,10 @@ import { injectable, inject } from 'tsyringe';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 import IAPIProvider from '../providers/APIProvider/models/IAPIProvider';
-import IGetStarredRepositoriesDTO from '../dtos/IGetStarredRepositoriesDTO';
+import IGetStarredReposDTO from '../dtos/IGetStarredReposDTO';
 
 @injectable()
-class GetRemoteRepositoriesService {
+class GetRemoteReposService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -14,7 +14,7 @@ class GetRemoteRepositoriesService {
     private apiProvider: IAPIProvider,
   ) {}
 
-  public async execute(id: string): Promise<IGetStarredRepositoriesDTO[]> {
+  public async execute(id: string): Promise<IGetStarredReposDTO[]> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
@@ -36,4 +36,4 @@ class GetRemoteRepositoriesService {
   }
 }
 
-export default GetRemoteRepositoriesService;
+export default GetRemoteReposService;

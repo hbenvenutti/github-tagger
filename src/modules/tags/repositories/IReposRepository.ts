@@ -1,7 +1,7 @@
 import GithubRepository from '../infra/typeorm/entities/GithubRepository';
-import ICreateRepositoryDTO from '../dtos/ICreateRepositoryDTO';
+import ICreateRepositoryDTO from '../dtos/ICreateReposDTO';
 
-interface IRepositoriesRepository {
+interface IReposRepository {
   create(
     data: ICreateRepositoryDTO[] | ICreateRepositoryDTO,
   ): Promise<GithubRepository[]>;
@@ -9,4 +9,4 @@ interface IRepositoriesRepository {
   findRemoteIdsByUser(user_id: string): Promise<number[]>;
 }
 
-export default IRepositoriesRepository;
+export default IReposRepository;

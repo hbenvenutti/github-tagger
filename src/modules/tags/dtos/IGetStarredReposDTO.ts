@@ -1,4 +1,4 @@
-export default interface IGetStarredRepositoriesDTO {
+export default interface IGetStarredReposDTO {
   id: number;
   name: string;
   description: string;

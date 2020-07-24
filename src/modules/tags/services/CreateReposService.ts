@@ -1,18 +1,18 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import IRepositoriesRepository from '../repositories/IRepositoriesRepository';
+import IReposRepository from '../repositories/IReposRepository';
 import GithubRepository from '../infra/typeorm/entities/GithubRepository';
-import IGetStarredRepositoriesDTO from '../dtos/IGetStarredRepositoriesDTO';
+import IGetStarredReposDTO from '../dtos/IGetStarredReposDTO';
 
 @injectable()
 class CreateReposService {
   constructor(
     @inject('ReposRepository')
-    private reposRepository: IRepositoriesRepository,
+    private reposRepository: IReposRepository,
   ) {}
 
   public async execute(
-    remoteRepositories: IGetStarredRepositoriesDTO[],
+    remoteRepositories: IGetStarredReposDTO[],
     userId: string,
   ): Promise<GithubRepository[]> {
     if (!remoteRepositories) {

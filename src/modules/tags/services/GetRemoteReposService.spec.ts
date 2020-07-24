@@ -1,7 +1,7 @@
 import FakeUsersRepository from '@modules/users/repositories/fake/FakeUsersRepository';
 import AppError from '@shared/errors/AppError';
 import FakeAPIProvider from '../providers/APIProvider/fake/FakeAPIProvider';
-import GetRemoteRepositoriesService from './GetRemoteRepositoriesService';
+import GetRemoteReposService from './GetRemoteReposService';
 
 /* TODO: I dont think this test is too helpfull,
  * I should find a better way to test it.
@@ -10,12 +10,12 @@ import GetRemoteRepositoriesService from './GetRemoteRepositoriesService';
 describe('GetRemoteRepositories', () => {
   let fakeUsersRepository: FakeUsersRepository;
   let fakeAPIProvider: FakeAPIProvider;
-  let getRepositories: GetRemoteRepositoriesService;
+  let getRepositories: GetRemoteReposService;
 
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeAPIProvider = new FakeAPIProvider();
-    getRepositories = new GetRemoteRepositoriesService(
+    getRepositories = new GetRemoteReposService(
       fakeUsersRepository,
       fakeAPIProvider,
     );

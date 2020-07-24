@@ -1,4 +1,4 @@
-export default interface ICreateRepositoryDTO {
+export default interface ICreateReposDTO {
   remote_id: number;
   user_id: string;
   name: string;
