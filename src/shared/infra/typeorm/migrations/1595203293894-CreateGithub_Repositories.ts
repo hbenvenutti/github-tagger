@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreateGithubRepositories1595203293894
   implements MigrationInterface {
@@ -9,8 +14,20 @@ export default class CreateGithubRepositories1595203293894
         columns: [
           {
             name: 'id',
-            type: 'integer',
+            type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+          },
+          {
+            name: 'remote_id',
+            type: 'integer',
+            isNullable: true,
+          },
+          {
+            name: 'user_id',
+            type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'name',
@@ -43,9 +60,22 @@ export default class CreateGithubRepositories1595203293894
         ],
       }),
     );
+
+    await queryRunner.createForeignKey(
+      'github_repositories',
+      new TableForeignKey({
+        name: 'UserId',
+        columnNames: ['user_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('github_repositories', 'UserId');
     await queryRunner.dropTable('github_repositories');
   }
 }

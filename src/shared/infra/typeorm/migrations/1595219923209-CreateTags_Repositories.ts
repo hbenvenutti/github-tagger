@@ -14,7 +14,7 @@ export default class CreateTagsRepositories1595219923209
         columns: [
           {
             name: 'repository_id',
-            type: 'integer',
+            type: 'uuid',
             isPrimary: true,
           },
           {
