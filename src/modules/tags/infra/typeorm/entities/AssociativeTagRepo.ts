@@ -9,21 +9,17 @@ import {
 import GithubRepository from './GithubRepository';
 import Tag from './Tag';
 
-@Entity()
+@Entity('tags_repositories')
 class AssociativeTagRepo {
   @PrimaryColumn()
+  @ManyToOne(() => GithubRepository)
+  @JoinColumn({ name: 'repository_id' })
   repository_id: string;
 
   @PrimaryColumn()
-  tag_id: string;
-
-  @ManyToOne(() => GithubRepository)
-  @JoinColumn({ name: 'repository_id' })
-  repository: GithubRepository;
-
   @ManyToOne(() => Tag)
   @JoinColumn({ name: 'tag_id' })
-  tag: GithubRepository;
+  tag_id: string;
 
   @CreateDateColumn()
   created_at: Date;

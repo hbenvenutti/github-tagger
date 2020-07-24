@@ -26,7 +26,9 @@ class GithubReposRepository implements IReposRepository {
   }
 
   public async findById(repoId: string): Promise<GithubRepository | undefined> {
-    const repo = this.ormRepository.findOne(repoId);
+    const repo = this.ormRepository.findOne(repoId, {
+      relations: ['user_id', 'tags_repository'],
+    });
 
     return repo;
   }

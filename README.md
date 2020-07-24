@@ -5,9 +5,21 @@ Github Client to tag repositories.
 
 # Running the application
 
-* **yarn build | npm run build**: It generates all ".js" files at "./dist".
-* **yarn test | npm run test**: It executes jest tests.
-* **yarn dev:server | npm run dev:server**: It executes the project in dev environment without building it.
+* `yarn build | npm run build`:
+
+  It generates all ".js" files at "./dist".
+
+* `yarn test | npm run test`:
+
+  It executes jest tests.
+
+* `yarn dev:server | npm run dev:server`:
+
+  It executes the project in dev environment without building it.
+
+* `yarn typeorm migration:run | npx typeorm migration:run` :
+
+  It runs migrations.
 
 # GitHub Authentication
 * This application uses GitHub personal access token. So the user must create one at [GitHub settings](https://github.com/settings/tokens).
@@ -83,6 +95,70 @@ Request:
   request: {
     headers: {
       authorization: "bearer <token>"
+    }
+  }
+```
+<hr>
+
+## __***/repositories***__:
+
+> ### **Post** ***/repositories***
+**Gets remote repositories and stores locally**;<br>
+
+Request:
+```ts
+  request: {
+    headers: {
+      authorization: "bearer <token>"
+    }
+  }
+```
+
+Response:
+```ts
+  response: [
+    repository: {
+      id: string;,
+      remote_id: number;
+      user_id: string;
+      name: string;
+      description: string;
+      url: string;
+      created_at: Date;
+      updated_at: Date;
+    }
+  ]
+```
+<hr>
+
+> ### **Post** ***/repositories/tags/:repo_id***
+**Tags a repository**;<br>
+
+Request:
+```ts
+  request: {
+    headers: {
+      authorization: "bearer <token>"
+    },
+    body: {
+      tagName: string;
+    }
+  }
+```
+Response:
+```ts
+  response: {
+    tag: {
+      name: string;
+      id: string;
+      created_at: Date;
+      updated_at: Date;
+    },
+    associativeTagRepo: {
+      repository_id: string;
+      tag_id: string;
+      created_at: Date;
+      updated_at: Date;
     }
   }
 ```

@@ -5,10 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import AssociativeTagRepo from './AssociativeTagRepo';
 
-@Entity()
+@Entity('tags')
 class Tag {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -20,6 +21,7 @@ class Tag {
     () => AssociativeTagRepo,
     tags_repositories => tags_repositories.tag_id,
   )
+  @JoinColumn({ name: 'tags_repository' })
   tags_repository: AssociativeTagRepo[];
 
   @CreateDateColumn()

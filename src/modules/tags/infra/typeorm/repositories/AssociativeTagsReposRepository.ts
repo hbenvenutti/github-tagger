@@ -10,6 +10,8 @@ class AssociativeTagsReposRepository
   public async tagRepo(data: ICreateTagRepoDTO): Promise<AssociativeTagRepo> {
     const tagsRepos = this.ormRepository.create(data);
 
+    await this.ormRepository.save(tagsRepos);
+
     return tagsRepos;
   }
 }

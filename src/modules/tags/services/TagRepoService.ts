@@ -20,12 +20,14 @@ class TagRepoService {
     const { id: repository_id } = repo;
     const repoTags = repo.tags_repository;
 
-    const repoHasTag = repoTags.find(
-      taggedRepo => taggedRepo.tag_id === tag_id,
-    );
+    if (repoTags) {
+      const repoHasTag = repoTags.find(
+        taggedRepo => taggedRepo.tag_id === tag_id,
+      );
 
-    if (repoHasTag) {
-      throw new AppError('repo already has this tag');
+      if (repoHasTag) {
+        throw new AppError('repo already has this tag');
+      }
     }
 
     const associativeTagRepo = this.tagsReposRepository.tagRepo({
