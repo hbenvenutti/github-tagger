@@ -1,6 +1,5 @@
 import {
   Entity,
-  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -23,7 +22,6 @@ class GithubRepository {
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
-  @PrimaryColumn()
   user_id: string;
 
   @Column()
