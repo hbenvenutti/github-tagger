@@ -1,5 +1,6 @@
 export default interface ICreateRepositoryDTO {
-  id: number;
+  remote_id: number;
+  user_id: string;
   name: string;
   description: string;
   url: string;
