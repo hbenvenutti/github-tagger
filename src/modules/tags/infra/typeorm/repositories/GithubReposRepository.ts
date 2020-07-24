@@ -24,6 +24,12 @@ class GithubReposRepository implements IReposRepository {
     const remoteIds = repositories.map(repo => repo.remote_id);
     return remoteIds;
   }
+
+  public async findById(repoId: string): Promise<GithubRepository | undefined> {
+    const repo = this.ormRepository.findOne(repoId);
+
+    return repo;
+  }
 }
 
 export default GithubReposRepository;

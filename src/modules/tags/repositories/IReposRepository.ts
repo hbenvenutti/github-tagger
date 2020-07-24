@@ -7,6 +7,8 @@ interface IReposRepository {
   ): Promise<GithubRepository[]>;
 
   findRemoteIdsByUser(user_id: string): Promise<number[]>;
+
+  findById(repoId: string): Promise<GithubRepository | undefined>;
 }
 
 export default IReposRepository;
