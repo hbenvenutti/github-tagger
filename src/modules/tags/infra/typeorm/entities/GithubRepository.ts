@@ -5,14 +5,26 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import User from '@modules/users/infra/typeorm/entities/User';
 import TagRepository from './TagRepository';
 
 @Entity('github_repositories')
 class GithubRepository {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  remote_id: number;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   @PrimaryColumn()
-  id: number;
+  user_id: string;
 
   @Column()
   name: string;
@@ -27,6 +39,7 @@ class GithubRepository {
     () => TagRepository,
     tags_repositories => tags_repositories.repository_id,
   )
+  @JoinColumn({ name: 'tags_repository' })
   tags_repository: TagRepository[];
 
   @CreateDateColumn()
