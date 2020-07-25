@@ -14,5 +14,6 @@ repositoryRouter.use(ensureAuthentication);
 repositoryRouter.post('/', repositoryController.store);
 repositoryRouter.get('/', repositoryController.index);
 repositoryRouter.post('/tags/:id', tagsController.store);
+repositoryRouter.delete('/tags/:id', tagsController.delete);
 
 export default repositoryRouter;

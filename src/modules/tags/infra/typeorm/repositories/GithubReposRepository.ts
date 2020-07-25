@@ -55,7 +55,10 @@ class GithubReposRepository implements IReposRepository {
   }
 
   public async findByUser(user_id: string): Promise<GithubRepository[]> {
-    const repos = await this.ormRepository.find({ where: { user_id } });
+    const repos = await this.ormRepository.find({
+      where: { user_id },
+      relations: ['tags_repository'],
+    });
 
     return repos;
   }

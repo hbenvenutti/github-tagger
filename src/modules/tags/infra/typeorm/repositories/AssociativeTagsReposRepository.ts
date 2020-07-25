@@ -14,6 +14,22 @@ class AssociativeTagsReposRepository
 
     return tagsRepos;
   }
+
+  public async findByRepoAndTag(
+    repository_id: string,
+    tag_id: string,
+  ): Promise<AssociativeTagRepo | undefined> {
+    const repoTag = await this.ormRepository.findOne({
+      where: { repository_id, tag_id },
+    });
+
+    return repoTag;
+  }
+
+  public async untag(taggedRepo: AssociativeTagRepo): Promise<void> {
+    const { repository_id, tag_id } = taggedRepo;
+    await this.ormRepository.delete({ repository_id, tag_id });
+  }
 }
 
 export default AssociativeTagsReposRepository;

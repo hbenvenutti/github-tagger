@@ -162,3 +162,67 @@ Response:
     }
   }
 ```
+<hr>
+
+> ### **Delete** ***/repositories/tags/:repo_id***
+**Untags a repository**;<br>
+
+Request:
+```ts
+  request: {
+    headers: {
+      authorization: "bearer <token>"
+    },
+    body: {
+      tagName: string;
+    }
+  }
+```
+
+Responsse:
+```ts
+  response: {
+    status: 204
+  }
+```
+
+<hr>
+
+> ### **Get** ***/repositories/***
+**Lists all stored starred repos**;<br>
+> TODO: Return all tags and its names;
+Request:
+```ts
+  request: {
+    headers: {
+      authorization: "bearer <token>"
+    },
+    query?: {
+      tag: string;
+    }
+  }
+```
+Response:
+```ts
+  response: {
+    {
+      id: string;,
+      remote_id: number;
+      user_id: string;
+      name: string;
+      description: string;
+      url: string;
+      created_at: Date;
+      updated_at: Date;
+
+      tags_repository?: [
+        tags_repositories: {
+          repository_id: string;
+          tag_id: string;
+          created_at: Date;
+          updated_at: Date;
+        }
+      ]
+    }
+  }
+```

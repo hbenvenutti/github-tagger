@@ -41,7 +41,7 @@ class RepositoryController {
       id,
     );
 
-    return response.json(repositories);
+    return response.status(201).json(repositories);
   }
 }
 
