@@ -22,7 +22,7 @@ class TagsController {
 
     const tag = await createTag.execute(tagName);
 
-    const associativeTagRepo = await tagRepo.execute(repo, tag);
+    const associativeTagRepo = await tagRepo.execute({ repo, tag });
 
     return response.status(201).json({ tag, associativeTagRepo });
   }
