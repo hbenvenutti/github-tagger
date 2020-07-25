@@ -2,6 +2,9 @@ import { injectable, inject } from 'tsyringe';
 import ITagsRepository from '../repositories/ITagsRepository';
 import Tag from '../infra/typeorm/entities/Tag';
 
+interface IRequestDTO {
+  tagName: string;
+}
 @injectable()
 class CreateTagService {
   constructor(
@@ -9,7 +12,7 @@ class CreateTagService {
     private tagsRepository: ITagsRepository,
   ) {}
 
-  public async execute(tagName: string): Promise<Tag> {
+  public async execute({ tagName }: IRequestDTO): Promise<Tag> {
     const tagExists = await this.tagsRepository.findByName(tagName);
 
     if (tagExists) {

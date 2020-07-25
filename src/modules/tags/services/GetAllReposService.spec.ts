@@ -22,16 +22,16 @@ describe('GetAllRepos', () => {
   });
 
   it('should be able to list repos', async () => {
-    const repos = await getAllRepos.execute({ userId: 'user id' });
+    const [repo] = await getAllRepos.execute({ userId: 'user id' });
 
-    const idIsUuid = isUuid(repos[0].id);
+    const idIsUuid = isUuid(repo.id);
 
     expect(idIsUuid).toBe(true);
-    expect(repos[0].description).toBe('fake description');
-    expect(repos[0].name).toBe('fake repo');
-    expect(repos[0].remote_id).toBe(123);
-    expect(repos[0].description).toBe('fake description');
-    expect(repos[0].url).toBe('http://fakeurl.example');
+    expect(repo.description).toBe('fake description');
+    expect(repo.name).toBe('fake repo');
+    expect(repo.remote_id).toBe(123);
+    expect(repo.description).toBe('fake description');
+    expect(repo.url).toBe('http://fakeurl.example');
   });
 
   it('should return an empty array if no repositories are found', async () => {

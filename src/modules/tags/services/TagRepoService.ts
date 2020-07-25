@@ -5,6 +5,10 @@ import Tag from '../infra/typeorm/entities/Tag';
 import IAssociativeTagsReposRepository from '../repositories/IAssociativeTagsReposRepository';
 import AssociativeTagRepo from '../infra/typeorm/entities/AssociativeTagRepo';
 
+interface IRequestDTO {
+  repo: GithubRepository;
+  tag: Tag;
+}
 @injectable()
 class TagRepoService {
   constructor(
@@ -12,10 +16,10 @@ class TagRepoService {
     private tagsReposRepository: IAssociativeTagsReposRepository,
   ) {}
 
-  public async execute(
-    repo: GithubRepository,
-    tag: Tag,
-  ): Promise<AssociativeTagRepo> {
+  public async execute({
+    repo,
+    tag,
+  }: IRequestDTO): Promise<AssociativeTagRepo> {
     const { id: tag_id } = tag;
     const { id: repository_id } = repo;
     const repoTags = repo.tags_repository;

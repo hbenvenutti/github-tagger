@@ -15,7 +15,7 @@ describe('CreateRepos', () => {
   });
 
   it('should be able to create repositories', async () => {
-    const remoteRepos: IGetStarredReposDTO[] = [
+    const [remoteRepo]: IGetStarredReposDTO[] = [
       {
         id: 12345,
         description: 'fake description',
@@ -24,15 +24,18 @@ describe('CreateRepos', () => {
       },
     ];
 
-    const repos = await createRepos.execute({ remoteRepos, userId: 'id' });
-    const idIsUuid = isUuid(repos[0].id);
+    const [repo] = await createRepos.execute({
+      remoteRepos: [remoteRepo],
+      userId: 'id',
+    });
+    const idIsUuid = isUuid(repo.id);
 
     expect(idIsUuid).toBe(true);
-    expect(repos[0].name).toEqual(remoteRepos[0].name);
-    expect(repos[0].description).toEqual(remoteRepos[0].description);
-    expect(repos[0].remote_id).toEqual(remoteRepos[0].id);
-    expect(repos[0].user_id).toBe('id');
-    expect(repos[0].url).toEqual(remoteRepos[0].url);
+    expect(repo.name).toEqual(remoteRepo.name);
+    expect(repo.description).toEqual(remoteRepo.description);
+    expect(repo.remote_id).toEqual(remoteRepo.id);
+    expect(repo.user_id).toBe('id');
+    expect(repo.url).toEqual(remoteRepo.url);
   });
 
   it('should not be able to create repos if there are no remote repos', async () => {
