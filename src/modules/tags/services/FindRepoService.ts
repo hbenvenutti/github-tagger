@@ -3,6 +3,9 @@ import AppError from '@shared/errors/AppError';
 import IReposRepository from '../repositories/IReposRepository';
 import GithubRepository from '../infra/typeorm/entities/GithubRepository';
 
+interface IRequestDTO {
+  repoId: string;
+}
 @injectable()
 class FindRepoService {
   constructor(
@@ -10,7 +13,7 @@ class FindRepoService {
     private reposRepository: IReposRepository,
   ) {}
 
-  public async execute(repoId: string): Promise<GithubRepository> {
+  public async execute({ repoId }: IRequestDTO): Promise<GithubRepository> {
     const repo = await this.reposRepository.findById(repoId);
 
     if (!repo) {

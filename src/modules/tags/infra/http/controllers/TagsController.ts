@@ -18,7 +18,7 @@ class TagsController {
 
     const tagRepo = container.resolve(TagRepoService);
 
-    const repo = await findRepo.execute(id);
+    const repo = await findRepo.execute({ repoId: id });
 
     const tag = await createTag.execute(tagName);
 

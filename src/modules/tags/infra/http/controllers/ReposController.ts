@@ -34,12 +34,12 @@ class RepositoryController {
     const getRepositories = container.resolve(GetRemoteReposService);
     const createRepositories = container.resolve(CreateReposService);
 
-    const remoteRepositories = await getRepositories.execute(id);
+    const remoteRepos = await getRepositories.execute({ id });
 
-    const repositories = await createRepositories.execute(
-      remoteRepositories,
-      id,
-    );
+    const repositories = await createRepositories.execute({
+      remoteRepos,
+      userId: id,
+    });
 
     return response.status(201).json(repositories);
   }

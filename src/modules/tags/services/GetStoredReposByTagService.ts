@@ -10,7 +10,7 @@ interface GetReposDTO {
 }
 
 @injectable()
-class GetStoredReposService {
+class GetStoredReposByTagService {
   constructor(
     @inject('ReposRepository')
     private reposRepository: IReposRepository,
@@ -35,4 +35,4 @@ class GetStoredReposService {
   }
 }
 
-export default GetStoredReposService;
+export default GetStoredReposByTagService;

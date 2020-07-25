@@ -4,6 +4,9 @@ import AppError from '@shared/errors/AppError';
 import IAPIProvider from '../providers/APIProvider/models/IAPIProvider';
 import IGetStarredReposDTO from '../dtos/IGetStarredReposDTO';
 
+interface IRequestDTO {
+  id: string;
+}
 @injectable()
 class GetRemoteReposService {
   constructor(
@@ -14,7 +17,7 @@ class GetRemoteReposService {
     private apiProvider: IAPIProvider,
   ) {}
 
-  public async execute(id: string): Promise<IGetStarredReposDTO[]> {
+  public async execute({ id }: IRequestDTO): Promise<IGetStarredReposDTO[]> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
@@ -28,7 +31,7 @@ class GetRemoteReposService {
       github_token,
     );
 
-    if (!repositories) {
+    if (!repositories.length) {
       throw new AppError('No repositories found', 404);
     }
 

@@ -22,6 +22,33 @@ class FakeReposRepository implements IReposRepository {
 
     return ids;
   }
+
+  public async findById(repoId: string): Promise<GithubRepository | undefined> {
+    const findRepo = this.repositories.find(repo => repo.id === repoId);
+
+    return findRepo;
+  }
+
+  public async findByUser(userId: string): Promise<GithubRepository[]> {
+    const findRepos = this.repositories.filter(repo => repo.user_id === userId);
+
+    return findRepos;
+  }
+
+  public async findByTag(
+    userId: string,
+    tagId: string,
+  ): Promise<GithubRepository[]> {
+    const repos = this.repositories.filter(repo => {
+      const repoTagged = repo.tags_repository.find(tag => tag.tag_id === tagId);
+
+      if (repo.user_id === userId && repoTagged) return repo;
+
+      return undefined;
+    });
+
+    return repos;
+  }
 }
 
 export default FakeReposRepository;

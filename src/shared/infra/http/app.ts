@@ -33,7 +33,7 @@ class App {
         if (process.env.ENVIRONMENT === 'develop') {
           return response.status(500).json({
             status: 'error',
-            message: `log: ${err.message}`,
+            message: err.message,
           });
         }
         return response.status(500).json({

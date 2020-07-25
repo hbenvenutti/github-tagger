@@ -13,7 +13,7 @@ class FakeAPIProvider implements IAPIProvider {
 
   public async getStarredRepositories(
     __: string,
-    _: string,
+    _?: string,
   ): Promise<IGetStarredReposDTO[]> {
     return this.remoteRepositories;
   }

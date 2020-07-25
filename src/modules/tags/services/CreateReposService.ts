@@ -4,6 +4,10 @@ import IReposRepository from '../repositories/IReposRepository';
 import GithubRepository from '../infra/typeorm/entities/GithubRepository';
 import IGetStarredReposDTO from '../dtos/IGetStarredReposDTO';
 
+interface IRequestDTO {
+  remoteRepos: IGetStarredReposDTO[];
+  userId: string;
+}
 @injectable()
 class CreateReposService {
   constructor(
@@ -11,16 +15,16 @@ class CreateReposService {
     private reposRepository: IReposRepository,
   ) {}
 
-  public async execute(
-    remoteRepositories: IGetStarredReposDTO[],
-    userId: string,
-  ): Promise<GithubRepository[]> {
-    if (!remoteRepositories) {
+  public async execute({
+    remoteRepos,
+    userId,
+  }: IRequestDTO): Promise<GithubRepository[]> {
+    if (!remoteRepos.length) {
       throw new AppError('no repositories provided');
     }
 
     const savedId = await this.reposRepository.findRemoteIdsByUser(userId);
-    const notExistentRepos = remoteRepositories.filter(repo => {
+    const notExistentRepos = remoteRepos.filter(repo => {
       if (!savedId.includes(repo.id)) {
         return repo;
       }

@@ -2,6 +2,7 @@ import FakeUsersRepository from '@modules/users/repositories/fake/FakeUsersRepos
 import AppError from '@shared/errors/AppError';
 import FakeAPIProvider from '../providers/APIProvider/fake/FakeAPIProvider';
 import GetRemoteReposService from './GetRemoteReposService';
+import IGetStarredReposDTO from '../dtos/IGetStarredReposDTO';
 
 /* TODO: I dont think this test is too helpfull,
  * I should find a better way to test it.
@@ -29,7 +30,8 @@ describe('GetRemoteRepositories', () => {
       password: 'password',
       github_token: 'token',
     });
-    const repositories = await getRepositories.execute(id);
+
+    const repositories = await getRepositories.execute({ id });
 
     expect(repositories).toEqual([
       {
@@ -44,6 +46,30 @@ describe('GetRemoteRepositories', () => {
   it('should not be able to fetch remote repositories without valid user', async () => {
     const id = 'fake id';
 
-    await expect(getRepositories.execute(id)).rejects.toBeInstanceOf(AppError);
+    await expect(getRepositories.execute({ id })).rejects.toBeInstanceOf(
+      AppError,
+    );
+  });
+
+  it('should throw an error if none remote repo found', async () => {
+    const { id } = await fakeUsersRepository.create({
+      username: 'johndoe',
+      email: 'johndoe@example.com',
+      github_username: 'johndoe',
+      password: 'password',
+      github_token: 'token',
+    });
+
+    jest
+      .spyOn(fakeAPIProvider, 'getStarredRepositories')
+      .mockImplementationOnce(async () => {
+        const empty: IGetStarredReposDTO[] = [];
+
+        return empty;
+      });
+
+    await expect(getRepositories.execute({ id })).rejects.toBeInstanceOf(
+      AppError,
+    );
   });
 });
