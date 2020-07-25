@@ -12,7 +12,7 @@ const tagsController = new TagsController();
 repositoryRouter.use(ensureAuthentication);
 
 repositoryRouter.post('/', repositoryController.store);
+repositoryRouter.get('/', repositoryController.index);
 repositoryRouter.post('/tags/:id', tagsController.store);
-// repositoryRouter.get('/', repositoryController.index);
 
 export default repositoryRouter;

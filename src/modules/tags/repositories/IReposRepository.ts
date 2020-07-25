@@ -9,6 +9,10 @@ interface IReposRepository {
   findRemoteIdsByUser(user_id: string): Promise<number[]>;
 
   findById(repoId: string): Promise<GithubRepository | undefined>;
+
+  findByTag(user_id: string, tag_id: string): Promise<GithubRepository[]>;
+
+  findByUser(user_id: string): Promise<GithubRepository[]>;
 }
 
 export default IReposRepository;

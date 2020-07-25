@@ -32,6 +32,33 @@ class GithubReposRepository implements IReposRepository {
 
     return repo;
   }
+
+  public async findByTag(
+    user_id: string,
+    tag_id: string,
+  ): Promise<GithubRepository[]> {
+    // TODO: get all tags and its names;
+
+    const repos = await this.ormRepository
+      .createQueryBuilder('github_repositories')
+      .innerJoinAndSelect(
+        'github_repositories.tags_repository',
+        'tag',
+        'tag.tag_id = :tagname',
+        { tagname: tag_id },
+      )
+      // .innerJoin('tag.tag_id', 'name')
+      .where('github_repositories.user_id = :userId', { userId: user_id })
+      .getMany();
+
+    return repos;
+  }
+
+  public async findByUser(user_id: string): Promise<GithubRepository[]> {
+    const repos = await this.ormRepository.find({ where: { user_id } });
+
+    return repos;
+  }
 }
 
 export default GithubReposRepository;
