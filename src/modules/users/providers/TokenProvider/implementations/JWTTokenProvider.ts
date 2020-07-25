@@ -12,24 +12,31 @@ interface ITokenPayload {
 class JWTTokenProvider implements ITokenProvider {
   private expiresIn = authConfig.jwt.expiresIn;
 
-  private secret = authConfig.jwt.secret;
+  private secret = authConfig.jwt.secret || '';
 
   public async signToken(userId: string): Promise<string> {
-    const token = sign({}, this.secret, {
-      subject: userId,
-      expiresIn: this.expiresIn,
-    });
+    if (this.secret) {
+      const token = sign({}, this.secret, {
+        subject: userId,
+        expiresIn: this.expiresIn,
+      });
 
-    return token;
+      return token;
+    }
+
+    throw new AppError('internal server error', 500);
   }
 
   public async verifyToken(token: string): Promise<string> {
     try {
-      const decoded = verify(token, this.secret);
+      if (this.secret) {
+        const decoded = verify(token, this.secret);
 
-      const { sub } = decoded as ITokenPayload;
+        const { sub } = decoded as ITokenPayload;
 
-      return sub;
+        return sub;
+      }
+      throw new AppError('internal server error', 500);
     } catch {
       throw new AppError('Invalid Token', 401);
     }
